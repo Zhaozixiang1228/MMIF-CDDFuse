@@ -10,11 +10,8 @@ Codes for ***CDDFuse: Correlation-Driven Dual-Branch Feature Decomposition for M
 
 ## Citation
 
-
-
-
 ```
-@article{DBLP:journals/corr/abs-2211-14461,
+@article{CDDFuse,
   author    = {Zixiang Zhao and Haowen Bai and Jiangshe Zhang and Yulun Zhang and Shuang Xu and Zudi Lin and Radu Timofte and Luc Van Gool},
   title     = {CDDFuse: Correlation-Driven Dual-Branch Feature Decomposition for Multi-Modality Image Fusion},
   booktitle = {Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR)},
