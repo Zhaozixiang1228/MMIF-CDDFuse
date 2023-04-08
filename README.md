@@ -102,7 +102,7 @@ which can match the results in Table 5 in our original paper.
 
 <img src="image//IVF2.png" width="90%" align=center />
 
-<img src="image//MIF.png" width="90%" align=center />
+<img src="image//MIF.png" width="60%" align=center />
 
 ### Quantitative fusion results.
 
