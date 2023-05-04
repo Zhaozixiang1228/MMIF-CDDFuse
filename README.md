@@ -8,10 +8,12 @@ Codes for ***CDDFuse: Correlation-Driven Dual-Branch Feature Decomposition for M
 -[*[Supplementary Materials]*]()  
 
 
+## Update
+- [2023/5] Training codes and config files will be public available before June.
+- [2023/4] Release inference code for infrared-visible image fusion and medical image fusion.
+
+
 ## Citation
-
-
-
 
 ```
 @article{DBLP:journals/corr/abs-2211-14461,
