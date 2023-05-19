@@ -3,9 +3,9 @@ Codes for ***CDDFuse: Correlation-Driven Dual-Branch Feature Decomposition for M
 
 [Zixiang Zhao](https://zhaozixiang1228.github.io/), [Haowen Bai](), [Jiangshe Zhang](http://gr.xjtu.edu.cn/web/jszhang), [Yulun Zhang](https://yulunzhang.com/), [Shuang Xu](https://shuangxu96.github.io/), [Zudi Lin](https://zudi-lin.github.io/), [Radu Timofte](https://www.informatik.uni-wuerzburg.de/computervision/home/) and [Luc Van Gool](https://vision.ee.ethz.ch/people-details.OTAyMzM=.TGlzdC8zMjQ4LC0xOTcxNDY1MTc4.html).
 
--[*[Paper]*]()  
+-[*[Paper]*](https://openaccess.thecvf.com/content/CVPR2023/html/Zhao_CDDFuse_Correlation-Driven_Dual-Branch_Feature_Decomposition_for_Multi-Modality_Image_Fusion_CVPR_2023_paper.html)  
 -[*[ArXiv]*](https://arxiv.org/abs/2104.06977)  
--[*[Supplementary Materials]*]()  
+-[*[Supplementary Materials]*](https://openaccess.thecvf.com/content/CVPR2023/supplemental/Zhao_CDDFuse_Correlation-Driven_Dual-Branch_CVPR_2023_supplemental.pdf)  
 
 
 ## Update
@@ -16,13 +16,13 @@ Codes for ***CDDFuse: Correlation-Driven Dual-Branch Feature Decomposition for M
 ## Citation
 
 ```
-@article{CDDFuse,
-  author    = {Zixiang Zhao and Haowen Bai and Jiangshe Zhang and Yulun Zhang and Shuang Xu and Zudi Lin and Radu Timofte and Luc Van Gool},
-  title     = {CDDFuse: Correlation-Driven Dual-Branch Feature Decomposition for Multi-Modality Image Fusion},
-  booktitle = {Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR)},
-  month     = {},
-  year      = {2023},
-  pages     = {}
+@InProceedings{Zhao_2023_CVPR,
+    author    = {Zhao, Zixiang and Bai, Haowen and Zhang, Jiangshe and Zhang, Yulun and Xu, Shuang and Lin, Zudi and Timofte, Radu and Van Gool, Luc},
+    title     = {CDDFuse: Correlation-Driven Dual-Branch Feature Decomposition for Multi-Modality Image Fusion},
+    booktitle = {Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR)},
+    month     = {June},
+    year      = {2023},
+    pages     = {5906-5916}
 }
 ```
 
@@ -65,7 +65,7 @@ CDDFuse         7.44    54.67   16.36   2.3     1.81    0.69    0.52    0.98
 ```
 which can match the results in Table 1 in our original paper.
 
-The output for ``'test_IVF.py'`` is:
+The output for ``'test_MIF.py'`` is:
 
 ```
 ================================================================================
