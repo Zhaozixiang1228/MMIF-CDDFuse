@@ -9,7 +9,7 @@ Codes for ***CDDFuse: Correlation-Driven Dual-Branch Feature Decomposition for M
 
 
 ## Update
-- [2023/5] Training codes and config files will be public available before June.
+- [2023/6] Training codes and config files are public available.
 - [2023/4] Release inference code for infrared-visible image fusion and medical image fusion.
 
 
@@ -81,7 +81,15 @@ Unfortunately, since the size of **MSRS dataset** for IVF is 500+MB, we can not 
 
 **3. Results in Our Paper**
 
-If you want to infer with our CDDFuse and obtain the fusion results in our paper, please run ``'test_IVF.py'`` for IVF and ``'test_MIF.py'`` for MIF. 
+If you want to infer with our CDDFuse and obtain the fusion results in our paper, please run 
+```
+python test_IVF.py
+``` 
+for IVF and 
+```
+python test_MIF.py
+``` 
+for MIF. 
 
 The testing results will be printed in the terminal. 
 
