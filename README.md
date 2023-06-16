@@ -36,13 +36,13 @@ Multi-modality (MM) image fusion aims to render fused images that maintain the m
 
 Our CDDFuse is implemented in ``net.py``.
 
-### Usage
+### Testing
 
 Pretrained models are available in ``'./models/CDDFuse_IVF.pth'`` and ``'./models/CDDFuse_MIF.pth'``, which are responsible for the Infrared-Visible Fusion (IVF) and Medical Image Fusion (MIF) tasks, respectively. 
 
 The test datasets used in the paper have been stored in ``'./test_img/RoadScene'``, ``'./test_img/TNO'`` for IVF, ``'./test_img/MRI_CT'``, ``'./test_img/MRI_PET'`` and ``'./test_img/MRI_SPECT'`` for MIF.
 
-Unfortunately, since the size of **MSRS dataset** for IVF is 500+MB, we can not upload it for exhibition. The other datasets contain all the test images.
+Unfortunately, since the size of **MSRS dataset** for IVF is 500+MB, we can not upload it for exhibition. It can be downloaded via [this link](https://github.com/Linfeng-Tang/MSRS). The other datasets contain all the test images.
 
 If you want to infer with our CDDFuse and obtain the fusion results in our paper, please run ``'test_IVF.py'`` for IVF and ``'test_MIF.py'`` for MIF. 
 
@@ -78,8 +78,8 @@ CDDFuse_MIF     4.88    79.17   38.14   2.61    1.41    0.61    0.68    1.34
 ================================================================================
 The test result of MRI_PET :
                  EN      SD      SF      MI     SCD     VIF     Qabf    SSIM
-CDDFuse_IVF     4.23    81.68   28.04   1.87    1.82    0.66    0.65    1.46
-CDDFuse_MIF     4.22    70.73   29.57   2.03    1.69    0.71    0.71    1.49
+CDDFuse_IVF     4.23    81.69   28.04   1.87    1.82    0.66    0.65    1.46
+CDDFuse_MIF     4.22    70.74   29.57   2.03    1.69    0.71    0.71    1.49
 ================================================================================
 
 ================================================================================
@@ -89,8 +89,27 @@ CDDFuse_IVF     3.91    71.81   20.66   1.9     1.87    0.65    0.68    1.45
 CDDFuse_MIF     3.9     58.31   20.87   2.49    1.35    0.97    0.78    1.48
 ================================================================================
 ```
-
 which can match the results in Table 5 in our original paper.
+
+### Training
+**1. Virtual Environment**
+```
+# create virtual environment
+conda create -n cddfuse python=3.8.10
+conda activate cddfuse
+# select pytorch version yourself
+# install cddfuse requirements
+pip install -r requirements.txt
+
+```
+**2. Data Preparation**
+Download the MSRS dataset from [this link](https://github.com/Linfeng-Tang/MSRS) and place it in the folder ``'./MSRS_train``.
+**3. Pre-Processing**
+Run 
+```python dataprocessing.py``` and the processed training dataset is in ``'./data/MSRS_train_imgsize_128_stride_200.h5``.
+**4. CDDFuse Training**
+run ```python train.py``` and the trained model is available in ``'./models/'``.
+
 
 ## CDDFuse
 
@@ -127,11 +146,16 @@ MM segmentation
 
 ## Related Work
 
-- Zixiang Zhao, Shuang Xu, Chunxia Zhang, Junmin Liu, Jiangshe Zhang and Pengfei Li, *DIDFuse: Deep Image Decomposition for Infrared and Visible Image Fusion.* **IJCAI 2020**: 970-976, https://www.ijcai.org/Proceedings/2020/135.
+- Zixiang Zhao, Haowen Bai, Jiangshe Zhang, Yulun Zhang, Kai Zhang, Shuang Xu, Dongdong Chen, Radu Timofte, Luc Van Gool. *Equivariant Multi-Modality Image Fusion.* **arXiv:2305.11443**, https://arxiv.org/abs/2305.11443
 
-- Zixiang Zhao, Shuang Xu, Jiangshe Zhang, Chengyang Liang, Chunxia Zhang and Junmin Liu, *Efficient and Model-Based Infrared and Visible Image Fusion via Algorithm Unrolling.* **IEEE Transactions on Circuits and Systems for Video Technology**, doi: 10.1109/TCSVT.2021.3075745, https://ieeexplore.ieee.org/document/9416456.
+- Zixiang Zhao, Haowen Bai, Yuanzhi Zhu, Jiangshe Zhang, Shuang Xu, Yulun Zhang, Kai Zhang, Deyu Meng, Radu Timofte, Luc Van Gool.
+*DDFM: Denoising Diffusion Model for Multi-Modality Image Fusion.* **arXiv:2303.06840**, https://arxiv.org/abs/2303.06840
 
-- Zixiang Zhao, Jiangshe Zhang, Haowen Bai, Yicheng Wang, Yukun Cui, Lilun Deng, Kai Sun, Chunxia Zhang, Junmin Liu, Shuang Xu, *Deep Convolutional Sparse Coding Networks for Interpretable Image Fusion.* **CVPR Workshop 2023**. https://robustart.github.io/long_paper/26.pdf.
+- Zixiang Zhao, Shuang Xu, Chunxia Zhang, Junmin Liu, Jiangshe Zhang and Pengfei Li. *DIDFuse: Deep Image Decomposition for Infrared and Visible Image Fusion.* **IJCAI 2020**, https://www.ijcai.org/Proceedings/2020/135.
 
-- Zixiang Zhao, Shuang Xu, Chunxia Zhang, Junmin Liu, Jiangshe Zhang, *Bayesian fusion for infrared and visible images.* **Signal Processing**, Volume 177, 2020, 107734, ISSN 0165-1684, https://doi.org/10.1016/j.sigpro.2020.107734.
+- Zixiang Zhao, Shuang Xu, Jiangshe Zhang, Chengyang Liang, Chunxia Zhang and Junmin Liu. *Efficient and Model-Based Infrared and Visible Image Fusion via Algorithm Unrolling.* **IEEE Transactions on Circuits and Systems for Video Technology 2021**, https://ieeexplore.ieee.org/document/9416456.
+
+- Zixiang Zhao, Jiangshe Zhang, Haowen Bai, Yicheng Wang, Yukun Cui, Lilun Deng, Kai Sun, Chunxia Zhang, Junmin Liu, Shuang Xu. *Deep Convolutional Sparse Coding Networks for Interpretable Image Fusion.* **CVPR Workshop 2023**. https://robustart.github.io/long_paper/26.pdf.
+
+- Zixiang Zhao, Shuang Xu, Chunxia Zhang, Junmin Liu, Jiangshe Zhang. *Bayesian fusion for infrared and visible images.* **Signal Processing**, https://doi.org/10.1016/j.sigpro.2020.107734.
 
