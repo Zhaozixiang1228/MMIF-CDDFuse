@@ -85,11 +85,11 @@ If you want to infer with our CDDFuse and obtain the fusion results in our paper
 ```
 python test_IVF.py
 ``` 
-for IVF and 
+for Infrared-Visible Fusion and 
 ```
 python test_MIF.py
 ``` 
-for MIF. 
+for Medical Image Fusion. 
 
 The testing results will be printed in the terminal. 
 
