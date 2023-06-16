@@ -100,15 +100,20 @@ conda activate cddfuse
 # select pytorch version yourself
 # install cddfuse requirements
 pip install -r requirements.txt
-
 ```
+
 **2. Data Preparation**
+
 Download the MSRS dataset from [this link](https://github.com/Linfeng-Tang/MSRS) and place it in the folder ``'./MSRS_train``.
+
 **3. Pre-Processing**
+
 Run 
 ```python dataprocessing.py``` and the processed training dataset is in ``'./data/MSRS_train_imgsize_128_stride_200.h5``.
+
 **4. CDDFuse Training**
-run ```python train.py``` and the trained model is available in ``'./models/'``.
+
+Run ```python train.py``` and the trained model is available in ``'./models/'``.
 
 
 ## CDDFuse
