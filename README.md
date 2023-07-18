@@ -32,11 +32,11 @@ Multi-modality (MM) image fusion aims to render fused images that maintain the m
 
 ## Usage
 
-### Network Architecture
+### ⚙ Network Architecture
 
 Our CDDFuse is implemented in ``net.py``.
 
-### Training
+### 🏊 Training
 **1. Virtual Environment**
 ```
 # create virtual environment
@@ -67,7 +67,7 @@ python train.py
 ``` 
 and the trained model is available in ``'./models/'``.
 
-### Testing
+### 🏄 Testing
 
 **1. Pretrained models**
 
@@ -136,7 +136,7 @@ CDDFuse_MIF     3.9     58.31   20.87   2.49    1.35    0.97    0.78    1.48
 ```
 which can match the results in Table 5 in our original paper.
 
-## CDDFuse
+## 🙌 CDDFuse
 
 ### Illustration of our CDDFuse model.
 
@@ -169,7 +169,7 @@ MM segmentation
 <img src="image//MMSeg.png" width="60%" align=center />
 
 
-## Related Work
+## 📖 Related Work
 
 - Zixiang Zhao, Haowen Bai, Jiangshe Zhang, Yulun Zhang, Kai Zhang, Shuang Xu, Dongdong Chen, Radu Timofte, Luc Van Gool. *Equivariant Multi-Modality Image Fusion.* **arXiv:2305.11443**, https://arxiv.org/abs/2305.11443
 
