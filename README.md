@@ -168,6 +168,9 @@ MM segmentation
 
 <img src="image//MMSeg.png" width="60%" align=center />
 
+## Star History
+
+[![Star History Chart](https://api.star-history.com/svg?repos=Zhaozixiang1228/MMIF-CDDFuse&type=Date)](https://star-history.com/#Zhaozixiang1228/MMIF-CDDFuse&Date)
 
 ## 📖 Related Work
 
