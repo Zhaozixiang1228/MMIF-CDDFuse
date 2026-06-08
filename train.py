@@ -53,16 +53,16 @@ optim_gamma = 0.5
 # Model
 device = 'cuda' if torch.cuda.is_available() else 'cpu'
 criteria_fusion = Fusionloss().to(device)
-DIDF_Encoder = nn.DataParallel(Restormer_Encoder()).to(device)
-DIDF_Decoder = nn.DataParallel(Restormer_Decoder()).to(device)
+CDDF_Encoder = nn.DataParallel(Restormer_Encoder()).to(device)
+CDDF_Decoder = nn.DataParallel(Restormer_Decoder()).to(device)
 BaseFuseLayer = nn.DataParallel(BaseFeatureExtraction(dim=64, num_heads=8)).to(device)
 DetailFuseLayer = nn.DataParallel(DetailFeatureExtraction(num_layers=1)).to(device)
 
 # optimizer, scheduler and loss function
 optimizer1 = torch.optim.Adam(
-    DIDF_Encoder.parameters(), lr=lr, weight_decay=weight_decay)
+    CDDF_Encoder.parameters(), lr=lr, weight_decay=weight_decay)
 optimizer2 = torch.optim.Adam(
-    DIDF_Decoder.parameters(), lr=lr, weight_decay=weight_decay)
+    CDDF_Decoder.parameters(), lr=lr, weight_decay=weight_decay)
 optimizer3 = torch.optim.Adam(
     BaseFuseLayer.parameters(), lr=lr, weight_decay=weight_decay)
 optimizer4 = torch.optim.Adam(
@@ -101,13 +101,13 @@ for epoch in range(num_epochs):
     ''' train '''
     for i, (data_VIS, data_IR) in enumerate(loader['train']):
         data_VIS, data_IR = data_VIS.to(device), data_IR.to(device)
-        DIDF_Encoder.train()
-        DIDF_Decoder.train()
+        CDDF_Encoder.train()
+        CDDF_Decoder.train()
         BaseFuseLayer.train()
         DetailFuseLayer.train()
 
-        DIDF_Encoder.zero_grad()
-        DIDF_Decoder.zero_grad()
+        CDDF_Encoder.zero_grad()
+        CDDF_Decoder.zero_grad()
         BaseFuseLayer.zero_grad()
         DetailFuseLayer.zero_grad()
 
@@ -117,10 +117,10 @@ for epoch in range(num_epochs):
         optimizer4.zero_grad()
 
         if epoch < epoch_gap: #Phase I
-            feature_V_B, feature_V_D, _ = DIDF_Encoder(data_VIS)
-            feature_I_B, feature_I_D, _ = DIDF_Encoder(data_IR)
-            data_VIS_hat, _ = DIDF_Decoder(data_VIS, feature_V_B, feature_V_D)
-            data_IR_hat, _ = DIDF_Decoder(data_IR, feature_I_B, feature_I_D)
+            feature_V_B, feature_V_D, _ = CDDF_Encoder(data_VIS)
+            feature_I_B, feature_I_D, _ = CDDF_Encoder(data_IR)
+            data_VIS_hat, _ = CDDF_Decoder(data_VIS, feature_V_B, feature_V_D)
+            data_IR_hat, _ = CDDF_Decoder(data_IR, feature_I_B, feature_I_D)
 
             cc_loss_B = cc(feature_V_B, feature_I_B)
             cc_loss_D = cc(feature_V_D, feature_I_D)
@@ -137,17 +137,17 @@ for epoch in range(num_epochs):
 
             loss.backward()
             nn.utils.clip_grad_norm_(
-                DIDF_Encoder.parameters(), max_norm=clip_grad_norm_value, norm_type=2)
+                CDDF_Encoder.parameters(), max_norm=clip_grad_norm_value, norm_type=2)
             nn.utils.clip_grad_norm_(
-                DIDF_Decoder.parameters(), max_norm=clip_grad_norm_value, norm_type=2)
+                CDDF_Decoder.parameters(), max_norm=clip_grad_norm_value, norm_type=2)
             optimizer1.step()  
             optimizer2.step()
         else:  #Phase II
-            feature_V_B, feature_V_D, feature_V = DIDF_Encoder(data_VIS)
-            feature_I_B, feature_I_D, feature_I = DIDF_Encoder(data_IR)
+            feature_V_B, feature_V_D, feature_V = CDDF_Encoder(data_VIS)
+            feature_I_B, feature_I_D, feature_I = CDDF_Encoder(data_IR)
             feature_F_B = BaseFuseLayer(feature_I_B+feature_V_B)
             feature_F_D = DetailFuseLayer(feature_I_D+feature_V_D)
-            data_Fuse, feature_F = DIDF_Decoder(data_VIS, feature_F_B, feature_F_D)  
+            data_Fuse, feature_F = CDDF_Decoder(data_VIS, feature_F_B, feature_F_D)
 
             
             mse_loss_V = 5*Loss_ssim(data_VIS, data_Fuse) + MSELoss(data_VIS, data_Fuse)
@@ -161,9 +161,9 @@ for epoch in range(num_epochs):
             loss = fusionloss + coeff_decomp * loss_decomp
             loss.backward()
             nn.utils.clip_grad_norm_(
-                DIDF_Encoder.parameters(), max_norm=clip_grad_norm_value, norm_type=2)
+                CDDF_Encoder.parameters(), max_norm=clip_grad_norm_value, norm_type=2)
             nn.utils.clip_grad_norm_(
-                DIDF_Decoder.parameters(), max_norm=clip_grad_norm_value, norm_type=2)
+                CDDF_Decoder.parameters(), max_norm=clip_grad_norm_value, norm_type=2)
             nn.utils.clip_grad_norm_(
                 BaseFuseLayer.parameters(), max_norm=clip_grad_norm_value, norm_type=2)
             nn.utils.clip_grad_norm_(
@@ -209,10 +209,9 @@ for epoch in range(num_epochs):
     
 if True:
     checkpoint = {
-        'DIDF_Encoder': DIDF_Encoder.state_dict(),
-        'DIDF_Decoder': DIDF_Decoder.state_dict(),
+        'CDDF_Encoder': CDDF_Encoder.state_dict(),
+        'CDDF_Decoder': CDDF_Decoder.state_dict(),
         'BaseFuseLayer': BaseFuseLayer.state_dict(),
         'DetailFuseLayer': DetailFuseLayer.state_dict(),
     }
     torch.save(checkpoint, os.path.join("models/CDDFuse_"+timestamp+'.pth'))
-
