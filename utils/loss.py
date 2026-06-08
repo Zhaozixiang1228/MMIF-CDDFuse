@@ -32,8 +32,8 @@ class Sobelxy(nn.Module):
                   [-1, -2, -1]]
         kernelx = torch.FloatTensor(kernelx).unsqueeze(0).unsqueeze(0)
         kernely = torch.FloatTensor(kernely).unsqueeze(0).unsqueeze(0)
-        self.weightx = nn.Parameter(data=kernelx, requires_grad=False).cuda()
-        self.weighty = nn.Parameter(data=kernely, requires_grad=False).cuda()
+        self.register_buffer('weightx', kernelx)
+        self.register_buffer('weighty', kernely)
     def forward(self,x):
         sobelx=F.conv2d(x, self.weightx, padding=1)
         sobely=F.conv2d(x, self.weighty, padding=1)

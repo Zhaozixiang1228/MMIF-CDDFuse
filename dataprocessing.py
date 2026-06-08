@@ -11,7 +11,7 @@ def get_img_file(file_name):
         for filename in filenames:
             if filename.lower().endswith(('.bmp', '.dib', '.png', '.jpg', '.jpeg', '.pbm', '.pgm', '.ppm', '.tif', '.tiff', '.npy')):
                 imagelist.append(os.path.join(parent, filename))
-        return imagelist
+    return imagelist
     
 def rgb2y(img):
     y = img[0:1, :, :] * 0.299000 + img[1:2, :, :] * 0.587000 + img[2:3, :, :] * 0.114000
@@ -36,6 +36,8 @@ def is_low_contrast(image, fraction_threshold=0.1, lower_percentile=10,
                     upper_percentile=90):
     """Determine if an image is low contrast."""
     limits = np.percentile(image, [lower_percentile, upper_percentile])
+    if limits[1] <= 0:
+        return True
     ratio = (limits[1] - limits[0]) / limits[1]
     return ratio < fraction_threshold
 
@@ -47,9 +49,12 @@ IR_files = sorted(get_img_file(r"MSRS_train/ir"))
 VIS_files   = sorted(get_img_file(r"MSRS_train/vi"))
 
 assert len(IR_files) == len(VIS_files)
-h5f = h5py.File(os.path.join('.\\data',
-                                 data_name+'_imgsize_'+str(img_size)+"_stride_"+str(stride)+'.h5'), 
-                    'w')
+assert len(IR_files) > 0, "No training images found in MSRS_train/ir and MSRS_train/vi"
+output_dir = 'data'
+os.makedirs(output_dir, exist_ok=True)
+output_path = os.path.join(output_dir,
+                           data_name+'_imgsize_'+str(img_size)+"_stride_"+str(stride)+'.h5')
+h5f = h5py.File(output_path, 'w')
 h5_ir = h5f.create_group('ir_patchs')
 h5_vis = h5f.create_group('vis_patchs')
 train_num=0
@@ -80,8 +85,7 @@ for i in tqdm(range(len(IR_files))):
 
 h5f.close()
 
-with h5py.File(os.path.join('data',
-                                 data_name+'_imgsize_'+str(img_size)+"_stride_"+str(stride)+'.h5'),"r") as f:
+with h5py.File(output_path,"r") as f:
     for key in f.keys():
         print(f[key], key, f[key].name) 
     

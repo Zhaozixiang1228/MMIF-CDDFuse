@@ -29,7 +29,6 @@ Configure our network
 
 
 os.environ['CUDA_VISIBLE_DEVICES'] = '0'
-criteria_fusion = Fusionloss()
 model_str = 'CDDFuse'
 
 # . Set the hyper-parameters for training
@@ -53,6 +52,7 @@ optim_gamma = 0.5
 
 # Model
 device = 'cuda' if torch.cuda.is_available() else 'cpu'
+criteria_fusion = Fusionloss().to(device)
 DIDF_Encoder = nn.DataParallel(Restormer_Encoder()).to(device)
 DIDF_Decoder = nn.DataParallel(Restormer_Decoder()).to(device)
 BaseFuseLayer = nn.DataParallel(BaseFeatureExtraction(dim=64, num_heads=8)).to(device)
@@ -100,7 +100,7 @@ prev_time = time.time()
 for epoch in range(num_epochs):
     ''' train '''
     for i, (data_VIS, data_IR) in enumerate(loader['train']):
-        data_VIS, data_IR = data_VIS.cuda(), data_IR.cuda()
+        data_VIS, data_IR = data_VIS.to(device), data_IR.to(device)
         DIDF_Encoder.train()
         DIDF_Decoder.train()
         BaseFuseLayer.train()
@@ -215,5 +215,4 @@ if True:
         'DetailFuseLayer': DetailFuseLayer.state_dict(),
     }
     torch.save(checkpoint, os.path.join("models/CDDFuse_"+timestamp+'.pth'))
-
 

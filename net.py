@@ -3,7 +3,6 @@ import torch.nn as nn
 import math
 import torch.nn.functional as F
 import torch.utils.checkpoint as checkpoint
-from timm.models.layers import DropPath, to_2tuple, trunc_normal_
 from einops import rearrange
 
 
@@ -398,6 +397,6 @@ if __name__ == '__main__':
     height = 128
     width = 128
     window_size = 8
-    modelE = Restormer_Encoder().cuda()
-    modelD = Restormer_Decoder().cuda()
-
+    device = 'cuda' if torch.cuda.is_available() else 'cpu'
+    modelE = Restormer_Encoder().to(device)
+    modelD = Restormer_Decoder().to(device)
