@@ -171,7 +171,7 @@ MM segmentation
 
 ## ⭐ Star History
 
-[![Star History Chart](https://api.star-history.com/svg?repos=Zhaozixiang1228/MMIF-CDDFuse&type=Date)](https://star-history.com/#Zhaozixiang1228/MMIF-CDDFuse&Date)
+[![Star History Chart](https://star-history.dera.page/svg?repos=Zhaozixiang1228/MMIF-CDDFuse&type=Date)](https://star-history.dera.page/#Zhaozixiang1228/MMIF-CDDFuse&Date)
 
 ## 📖 Related Work
 - Zixiang Zhao, Lilun Deng, Haowen Bai, Yukun Cui, Zhipeng Zhang, Yulun Zhang, Haotong Qin, Dongdong Chen, Jiangshe Zhang, Peng Wang, Luc Van Gool. *Image Fusion via Vision-Language Model.* **ICML 2024**. https://arxiv.org/abs/2402.02235.
